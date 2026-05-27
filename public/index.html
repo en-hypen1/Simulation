@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pyetësor — Siguria Dixhitale 2026</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Georgia, serif; background: #f9f7f4; color: #1a1a1a; min-height: 100vh; }
+    .container { max-width: 640px; margin: 0 auto; padding: 48px 24px; }
+    .tag { font-family: system-ui, sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #2563eb; font-weight: 600; margin-bottom: 16px; }
+    h1 { font-size: 28px; line-height: 1.3; font-weight: 700; margin-bottom: 16px; color: #111; }
+    .meta { font-family: system-ui, sans-serif; font-size: 13px; color: #666; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5; }
+    p { font-size: 16px; line-height: 1.75; color: #333; margin-bottom: 18px; }
+    .highlight { background: #fffbeb; border-left: 3px solid #f59e0b; padding: 14px 18px; border-radius: 4px; margin: 24px 0; font-size: 15px; }
+    .btn { display: inline-block; margin-top: 12px; background: #2563eb; color: white; font-family: system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 14px 32px; border-radius: 8px; text-decoration: none; cursor: pointer; border: none; transition: background 0.2s; }
+    .btn:hover { background: #1d4ed8; }
+    .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e5e5e5; font-family: system-ui, sans-serif; font-size: 12px; color: #999; }
+    #reveal { display: none; margin-top: 32px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 24px; font-family: system-ui, sans-serif; }
+    #reveal h2 { font-size: 18px; color: #15803d; margin-bottom: 12px; }
+    #reveal p { font-size: 14px; color: #166534; margin-bottom: 8px; font-family: system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="tag">Studim Akademik · Universiteti i Shkodrës</div>
+    <h1>A jeni të sigurt online? Merrni pjesë në pyetësorin tonë</h1>
+    <div class="meta">Arnilda Bibaj · Maj 2026 · Koha e plotësimit: ~3 minuta</div>
+
+    <p>Ky pyetësor është pjesë e një teze diplome mbi sigurinë e të dhënave personale në internet. Të dhënat mblidhen në mënyrë anonime dhe përdoren vetëm për qëllime studimore.</p>
+
+    <p>Studimi synon të kuptojë nivelin e ndërgjegjësimit të përdoruesve shqiptarë ndaj rreziqeve online — si phishing, rrjedhjet e të dhënave dhe keqpërdorimi i informacionit personal.</p>
+
+    <div class="highlight">
+      🔒 Të gjitha përgjigjet janë <strong>anonime</strong>. Nuk mblidhet asnjë e dhënë personale identifikuese.
+    </div>
+
+    <p>Klikoni butonin më poshtë për të hapur pyetësorin. Ju falënderojmë për kohën dhe kontributin tuaj!</p>
+
+    <button class="btn" onclick="handleClick()">Hap pyetësorin →</button>
+
+    <div id="reveal">
+      <h2>✅ Faleminderit për pjesëmarrjen!</h2>
+      <p><strong>Ky ishte një simulim edukativ i phishing.</strong></p>
+      <p>Sapo klikuat një link nga një burim i panjohur — shumë linqe të tilla mund të ishin të dëmshme.</p>
+      <p>Klikimi juaj u regjistrua si pjesë e studimit mbi sjelljen e përdoruesve online. Asnjë e dhënë personale nuk u mor.</p>
+      <p style="margin-top:12px; font-weight:600;">Mëso si të mbrohesh: kontrolloni gjithmonë dërguesin para se të klikoni çdo link!</p>
+    </div>
+
+    <div class="footer">
+      Universiteti i Shkodrës "Luigj Gurakuqi" · Fakulteti i Shkencave të Natyrës · 2026
+    </div>
+  </div>
+
+  <script>
+    async function handleClick() {
+      const source = new URLSearchParams(window.location.search).get('src') || 'direct';
+      const ua = navigator.userAgent;
+      const device = /Mobi|Android/i.test(ua) ? 'telefon' : /iPad|Tablet/i.test(ua) ? 'tablet' : 'pc';
+
+      try {
+        await fetch('/api/click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ source, device, ua })
+        });
+      } catch(e) {}
+
+      document.querySelector('.btn').style.display = 'none';
+      document.getElementById('reveal').style.display = 'block';
+      document.getElementById('reveal').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    (async () => {
+      const source = new URLSearchParams(window.location.search).get('src') || 'direct';
+      const ua = navigator.userAgent;
+      const device = /Mobi|Android/i.test(ua) ? 'telefon' : /iPad|Tablet/i.test(ua) ? 'tablet' : 'pc';
+      try {
+        await fetch('/api/click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ source, device, ua, page_load: true })
+        });
+      } catch(e) {}
+    })();
+  </script>
+</body>
+</html>
